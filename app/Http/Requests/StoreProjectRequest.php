@@ -18,6 +18,7 @@ class StoreProjectRequest extends FormRequest
             'deskripsi_project' => ['required', 'string'],
             'image_project' => ['nullable', 'image', 'max:2048'],
             'project_price' => ['required', 'numeric', 'min:0'],
+            'download_link' => ['required', 'string', 'max:255'],
         ];
     }
 }
