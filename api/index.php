@@ -1,22 +1,27 @@
 <?php
-// api/index.php - The Final Correct Serverless Handler
+// api/index.php - The Final, Vercel-Stable Serverless Handler
 
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Http\Kernel;
 
-// 1. Load the Composer Autoloader
+// 1. Define LARAVEL_START for performance metrics
+define('LARAVEL_START', microtime(true));
+
+// 2. Load the Composer Autoloader
 require __DIR__ . '/../vendor/autoload.php';
 
-// 2. Instantiate the Application
+// 3. Instantiate the Application
 $app = require_once __DIR__ . '/../bootstrap/app.php';
 
-// 3. Manually Bootstrap the Kernel (Essential for Vercel/Serverless)
-$kernel = $app->make(\Illuminate\Contracts\Http\Kernel::class);
+// 4. Resolve the HTTP Kernel and Bootstrap (CRUCIAL FIX)
+$kernel = $app->make(Kernel::class);
 
-// 4. Handle the Request (using the correct Request class)
+// 5. Handle the Request explicitly
 $response = $kernel->handle(
-    $request = Request::capture() // ⬅️ The fix is here: uses 'Request' which is aliased via 'use Illuminate\Http\Request;'
+    $request = Request::capture()
 );
 
-// 5. Send Response and Terminate
+// 6. Send Response and Terminate
 $response->send();
+
 $kernel->terminate($request, $response);
