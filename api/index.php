@@ -1,23 +1,22 @@
 <?php
-// api/index.php
+// api/index.php - The Final Correct Serverless Handler
 
-// This is the path to the Laravel bootstrap file
+use Illuminate\Http\Request;
+
+// 1. Load the Composer Autoloader
 require __DIR__ . '/../vendor/autoload.php';
 
-// Instantiate the application
+// 2. Instantiate the Application
 $app = require_once __DIR__ . '/../bootstrap/app.php';
 
-// --- ADD THESE LINES TO MANUALLY BOOTSTRAP ESSENTIAL SERVICES ---
-$app->make(\Illuminate\Contracts\Http\Kernel::class)->bootstrap();
-// --- END OF ADDED LINES ---
-
-// Handle the request
+// 3. Manually Bootstrap the Kernel (Essential for Vercel/Serverless)
 $kernel = $app->make(\Illuminate\Contracts\Http\Kernel::class);
 
+// 4. Handle the Request (using the correct Request class)
 $response = $kernel->handle(
-    $request = \Illuminate\Http\Request::capture()
+    $request = Request::capture() // ⬅️ The fix is here: uses 'Request' which is aliased via 'use Illuminate\Http\Request;'
 );
 
+// 5. Send Response and Terminate
 $response->send();
-
 $kernel->terminate($request, $response);
