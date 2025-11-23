@@ -29,7 +29,11 @@ class UserController extends Controller
 
         return view('users.status', [
             'title' => 'User purchase',
+<<<<<<< HEAD
+            'payments' => $payments
+=======
             'purchases' => $payments
+>>>>>>> de2b6997e69300a9248bd708c2caa7fd4e9233fa
         ]);
     }
 }
