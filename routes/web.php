@@ -8,11 +8,20 @@ use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
+| ROOT Route
+|--------------------------------------------------------------------------
+| Mengarahkan rute utama '/' langsung ke halaman daftar proyek.
+*/
+Route::get('/', [ProjectsController::class, 'projects'])->name('home');
+
+
+/*
+|--------------------------------------------------------------------------
 | PROJECT ROUTES
 |--------------------------------------------------------------------------
 */
 Route::get('/projects/about', [ProjectsController::class, 'about'])->name('projects.about');
-Route::get('/projects/projects', [ProjectsController::class, 'projects'])->name('projects/projects');
+Route::get('/projects/projects', [ProjectsController::class, 'projects'])->name('projects.projects');
 
 // resource = CRUD projects
 Route::resource('projects', ProjectsController::class);
