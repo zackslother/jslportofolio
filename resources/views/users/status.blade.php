@@ -18,11 +18,7 @@
             <p class="text-gray-400 mb-6">Track your orders and download purchased projects</p>
 
             <div class="space-y-6">
-<<<<<<< HEAD
                 @forelse ($payments as $purchase)
-=======
-                @forelse ($purchases as $purchase)
->>>>>>> de2b6997e69300a9248bd708c2caa7fd4e9233fa
                     @php
                         $project = $purchase->project;
                     @endphp
